@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Email & SMS Spam Classifier</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html, body {
+      height: 100%;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #121212;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 600px;
+      background-color: #1e1e2f;
+      padding: 40px;
+      border-radius: 15px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+    }
+
+    .header {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+      color: #00ffcc;
+      font-size: 28px;
+      font-weight: bold;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    textarea {
+      width: 100%;
+      height: 150px;
+      padding: 15px;
+      font-size: 16px;
+      border: none;
+      border-radius: 10px;
+      resize: none;
+      margin-top: 10px;
+    }
+
+    .btn {
+      width: 100%;
+      padding: 15px;
+      margin-top: 20px;
+      background: #00ffcc;
+      border: none;
+      color: #000;
+      font-size: 18px;
+      font-weight: bold;
+      cursor: pointer;
+      border-radius: 8px;
+      transition: 0.3s ease-in-out;
+    }
+
+    .btn:hover {
+      background: #00ccaa;
+    }
+
+    .result {
+      text-align: center;
+      margin-top: 30px;
+      font-size: 24px;
+      font-weight: bold;
+      padding: 15px;
+      border-radius: 10px;
+    }
+
+    .spam {
+      background-color: #ff4d4d;
+      color: #fff;
+      border: 2px solid #ff0000;
+    }
+
+    .not-spam {
+      background-color: #4dff88;
+      color: #000;
+      border: 2px solid #00cc66;
+    }
+
+    label {
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <span>📩</span>
+      <span>Email & SMS Spam Classifier</span>
+    </div>
+
+    <form method="POST" action="/predict">
+      <label for="message">Type a message below:</label>
+      <textarea name="message" id="message" placeholder="e.g., Congratulations! You've won a free prize...">{{ message or '' }}</textarea>
+      <button type="submit" class="btn">🔍 Predict</button>
+    </form>
+
+    {% if prediction %}
+    <div class="result {{ 'spam' if prediction == 'Spam' else 'not-spam' }}">
+      Result: {{ prediction }}
+    </div>
+    {% endif %}
+  </div>
+</body>
+</html>
